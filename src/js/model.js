@@ -44,6 +44,7 @@ class TodoList {
 
     load(){
         this.todos = Storage.loadFromLocalStorage() || [];
+        console.log("Loaded...");
     }
 
     save(){
@@ -109,6 +110,7 @@ class Storage {
         if (this.storageAvailable("localStorage")) {
             // Yippee! We can use localStorage awesomeness
             localStorage.setItem("todos",this.objToString(arrTodos));
+            console.log("saved");
         }
         else {
             // Too bad, no localStorage for us

@@ -1,5 +1,4 @@
 import { controller } from "./controller.js";
-import { Todo } from "./model.js";
 
 class View{
     constructor(){
@@ -12,7 +11,7 @@ class View{
 
         this.elemInput.keypress( (e) => {
             if ( e.which === 13){
-                controller.addTodo(new Todo(this.elemInput.val()) );
+                controller.addTodo(this.elemInput.val());
                 this.elemInput.val("");
                 this.render();
             }
@@ -28,7 +27,9 @@ class View{
             let id = $(this).attr("data-id");
             controller.deleteById(id);
             self.render();
-        });   
+        });
+        
+        this.render();
     }
 
     render(){

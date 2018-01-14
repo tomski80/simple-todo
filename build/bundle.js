@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 63);
+/******/ 	return __webpack_require__(__webpack_require__.s = 62);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,16 +74,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* global Symbol
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	__webpack_require__(14),
 	__webpack_require__(1),
-	__webpack_require__(66),
+	__webpack_require__(65),
 	__webpack_require__(17),
 	__webpack_require__(33),
 	__webpack_require__(34),
 	__webpack_require__(18),
 	__webpack_require__(16),
-	__webpack_require__(67),
+	__webpack_require__(66),
 	__webpack_require__(19),
 	__webpack_require__(35),
-	__webpack_require__(68),
+	__webpack_require__(67),
 	__webpack_require__(7),
 	__webpack_require__(36)
 ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( arr, document, getProto, slice, concat, push, indexOf,
@@ -562,7 +562,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() 
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(69) ], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(68) ], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
 	"use strict";
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1247,8 +1247,8 @@ return jQuery;
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	__webpack_require__(0),
 	__webpack_require__(18),
+	__webpack_require__(71),
 	__webpack_require__(72),
-	__webpack_require__(73),
 	__webpack_require__(45),
 	__webpack_require__(6),
 
@@ -2199,12 +2199,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 	__webpack_require__(0),
 	__webpack_require__(1),
 	__webpack_require__(5),
-	__webpack_require__(88),
+	__webpack_require__(87),
 	__webpack_require__(58),
 	__webpack_require__(59),
 
 	__webpack_require__(3),
-	__webpack_require__(89),
+	__webpack_require__(88),
 	__webpack_require__(31),
 	__webpack_require__(9),
 	__webpack_require__(60) // jQuery.param
@@ -3526,7 +3526,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 	__webpack_require__(54),
 	__webpack_require__(55),
 	__webpack_require__(56),
-	__webpack_require__(78),
+	__webpack_require__(77),
 
 	__webpack_require__(4),
 	__webpack_require__(48),
@@ -4645,7 +4645,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 	__webpack_require__(32),
 	__webpack_require__(41),
 	__webpack_require__(4),
-	__webpack_require__(77),
+	__webpack_require__(76),
 
 	__webpack_require__(3),
 	__webpack_require__(27),
@@ -4653,7 +4653,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 	__webpack_require__(10),
 	__webpack_require__(15),
 	__webpack_require__(13),
-	__webpack_require__(79)
+	__webpack_require__(78)
 ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( jQuery, document, rcssNum, rnothtmlwhite, cssExpand, isHiddenWithinTree, swap,
 	adjustCSS, dataPriv, showHide ) {
 
@@ -6067,7 +6067,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	__webpack_require__(0),
 	__webpack_require__(1),
-	__webpack_require__(71),
+	__webpack_require__(70),
 	__webpack_require__(9)
 ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( jQuery, document ) {
 
@@ -6954,7 +6954,7 @@ exports.controller = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _model = __webpack_require__(62);
+var _model = __webpack_require__(104);
 
 var _view = __webpack_require__(105);
 
@@ -6968,6 +6968,7 @@ var Controller = function () {
     _createClass(Controller, [{
         key: "init",
         value: function init() {
+            _model.todoList.init();
             _view.view.init();
         }
     }, {
@@ -6979,16 +6980,29 @@ var Controller = function () {
         key: "addTodo",
         value: function addTodo(todo) {
             _model.todoList.add(todo);
+            this.save();
         }
     }, {
         key: "deleteById",
         value: function deleteById(todoId) {
             _model.todoList.removeById(todoId);
+            this.save();
         }
     }, {
         key: "toggleById",
         value: function toggleById(todoId) {
             _model.todoList.toggleById(todoId);
+            this.save();
+        }
+    }, {
+        key: "save",
+        value: function save() {
+            _model.todoList.save();
+        }
+    }, {
+        key: "load",
+        value: function load() {
+            _model.todoList.load();
         }
     }]);
 
@@ -7001,86 +7015,17 @@ var controller = exports.controller = new Controller();
 /* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+module.exports = __webpack_require__(63);
 
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Todo = exports.Todo = function () {
-    function Todo(name) {
-        _classCallCheck(this, Todo);
-
-        this.name = name;
-        this.id = Todo.counter;
-        this.completed = false;
-    }
-
-    _createClass(Todo, null, [{
-        key: "counter",
-        get: function get() {
-            Todo._counter = (Todo._counter || 0) + 1;
-            return Todo._counter;
-        }
-    }]);
-
-    return Todo;
-}();
-
-var TodoList = function () {
-    function TodoList() {
-        _classCallCheck(this, TodoList);
-
-        this.todos = [];
-    }
-
-    _createClass(TodoList, [{
-        key: "add",
-        value: function add(todo) {
-            this.todos.push(todo);
-        }
-    }, {
-        key: "removeById",
-        value: function removeById(id) {
-            this.todos = this.todos.filter(function (elem) {
-                return elem.id !== +id;
-            });
-        }
-    }, {
-        key: "toggleById",
-        value: function toggleById(id) {
-            var index = this.todos.findIndex(function (elem) {
-                return elem.id === +id;
-            });
-            this.todos[index].completed = !this.todos[index].completed;
-        }
-    }]);
-
-    return TodoList;
-}();
-
-var todoList = exports.todoList = new TodoList();
 
 /***/ }),
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(64);
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
-var _jquery = __webpack_require__(65);
+var _jquery = __webpack_require__(64);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -7098,7 +7043,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 });
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -7107,34 +7052,34 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 	__webpack_require__(10),
 	__webpack_require__(25),
 	__webpack_require__(9),
-	__webpack_require__(74),
+	__webpack_require__(73),
 	__webpack_require__(46),
-	__webpack_require__(75),
+	__webpack_require__(74),
 	__webpack_require__(27),
-	__webpack_require__(76),
-	__webpack_require__(80),
+	__webpack_require__(75),
+	__webpack_require__(79),
 	__webpack_require__(11),
+	__webpack_require__(83),
 	__webpack_require__(84),
-	__webpack_require__(85),
 	__webpack_require__(15),
-	__webpack_require__(87),
-	__webpack_require__(90),
+	__webpack_require__(86),
+	__webpack_require__(89),
 	__webpack_require__(13),
-	__webpack_require__(91),
+	__webpack_require__(90),
 	__webpack_require__(60),
 	__webpack_require__(12),
+	__webpack_require__(91),
 	__webpack_require__(92),
 	__webpack_require__(93),
 	__webpack_require__(94),
-	__webpack_require__(95),
-	__webpack_require__(98),
+	__webpack_require__(97),
 	__webpack_require__(28),
+	__webpack_require__(98),
 	__webpack_require__(99),
 	__webpack_require__(100),
 	__webpack_require__(101),
 	__webpack_require__(102),
-	__webpack_require__(103),
-	__webpack_require__(104)
+	__webpack_require__(103)
 ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( jQuery ) {
 
 "use strict";
@@ -7146,7 +7091,7 @@ return jQuery;
 
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
@@ -7158,7 +7103,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() 
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -7172,7 +7117,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -7186,12 +7131,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	__webpack_require__(0),
-	__webpack_require__(70)
+	__webpack_require__(69)
 ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( jQuery, Sizzle ) {
 
 "use strict";
@@ -7212,7 +7157,7 @@ jQuery.escapeSelector = Sizzle.escape;
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9491,7 +9436,7 @@ if ( true ) {
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -9511,7 +9456,7 @@ jQuery.readyException = function( error ) {
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -9540,7 +9485,7 @@ return function( elem, dir, until ) {
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
@@ -9564,7 +9509,7 @@ return function( n, elem ) {
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -9592,7 +9537,7 @@ jQuery.Deferred.exceptionHook = function( error, stack ) {
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -9778,7 +9723,7 @@ return jQuery;
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -9809,7 +9754,7 @@ return jQuery.fn.delay;
 
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -9921,7 +9866,7 @@ return showHide;
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -9963,7 +9908,7 @@ return support;
 
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10093,15 +10038,15 @@ jQuery.fx.step = {};
 
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	__webpack_require__(0),
-	__webpack_require__(81),
+	__webpack_require__(80),
 	__webpack_require__(57),
-	__webpack_require__(82),
-	__webpack_require__(83)
+	__webpack_require__(81),
+	__webpack_require__(82)
 ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( jQuery ) {
 
 "use strict";
@@ -10113,7 +10058,7 @@ return jQuery;
 
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10261,7 +10206,7 @@ jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) 
 
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10442,7 +10387,7 @@ jQuery.fn.extend( {
 
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10639,7 +10584,7 @@ jQuery.each( [ "radio", "checkbox" ], function() {
 
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10675,13 +10620,13 @@ jQuery.fn.extend( {
 
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	__webpack_require__(0),
 	__webpack_require__(4),
-	__webpack_require__(86),
+	__webpack_require__(85),
 
 	__webpack_require__(11),
 	__webpack_require__(31)
@@ -10737,7 +10682,7 @@ return jQuery;
 
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10755,7 +10700,7 @@ return support;
 
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10785,7 +10730,7 @@ return jQuery._evalUrl;
 
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
@@ -10797,7 +10742,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() 
 
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10834,7 +10779,7 @@ return jQuery.parseXML;
 
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10918,7 +10863,7 @@ return jQuery;
 
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -10940,7 +10885,7 @@ jQuery.expr.pseudos.visible = function( elem ) {
 
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11116,7 +11061,7 @@ jQuery.ajaxTransport( function( options ) {
 
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11200,7 +11145,7 @@ jQuery.ajaxTransport( "script", function( s ) {
 
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11309,13 +11254,13 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	__webpack_require__(0),
 	__webpack_require__(30),
-	__webpack_require__(96),
+	__webpack_require__(95),
 	__webpack_require__(12),
 	__webpack_require__(10),
 	__webpack_require__(15),
@@ -11392,7 +11337,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11402,7 +11347,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 	__webpack_require__(56),
 
 	// This is the only module that needs core/support
-	__webpack_require__(97)
+	__webpack_require__(96)
 ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( jQuery, document, rsingleTag, buildFragment, support ) {
 
 "use strict";
@@ -11464,7 +11409,7 @@ return jQuery.parseHTML;
 
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11491,7 +11436,7 @@ return support;
 
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11520,7 +11465,7 @@ jQuery.each( [
 
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11542,7 +11487,7 @@ jQuery.expr.pseudos.animated = function( elem ) {
 
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11778,7 +11723,7 @@ return jQuery;
 
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11841,7 +11786,7 @@ return jQuery;
 
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11888,7 +11833,7 @@ jQuery.nodeName = nodeName;
 
 
 /***/ }),
-/* 103 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11922,7 +11867,7 @@ if ( true ) {
 
 
 /***/ }),
-/* 104 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -11963,6 +11908,191 @@ if ( !noGlobal ) {
 
 
 /***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Todo = exports.Todo = function () {
+    function Todo(name) {
+        _classCallCheck(this, Todo);
+
+        this.name = name;
+        this.id = Todo.counter;
+        this.completed = false;
+    }
+
+    _createClass(Todo, null, [{
+        key: "counter",
+        get: function get() {
+            Todo._counter = (Todo._counter || 0) + 1;
+            return Todo._counter;
+        },
+        set: function set(count) {
+            Todo._counter = count;
+        }
+    }]);
+
+    return Todo;
+}();
+
+var TodoList = function () {
+    function TodoList() {
+        _classCallCheck(this, TodoList);
+
+        this.todos = [];
+    }
+
+    _createClass(TodoList, [{
+        key: "init",
+        value: function init() {
+            this.load();
+        }
+    }, {
+        key: "add",
+        value: function add(name) {
+            var todo = new Todo(name);
+            this.todos.push(todo);
+        }
+    }, {
+        key: "removeById",
+        value: function removeById(id) {
+            this.todos = this.todos.filter(function (elem) {
+                return elem.id !== +id;
+            });
+        }
+    }, {
+        key: "toggleById",
+        value: function toggleById(id) {
+            var index = this.todos.findIndex(function (elem) {
+                return elem.id === +id;
+            });
+            this.todos[index].completed = !this.todos[index].completed;
+        }
+    }, {
+        key: "load",
+        value: function load() {
+            this.todos = Storage.loadFromLocalStorage() || [];
+            console.log("Loaded...");
+        }
+    }, {
+        key: "save",
+        value: function save() {
+            Storage.saveToLocalStorage(this.todos);
+        }
+    }]);
+
+    return TodoList;
+}();
+
+var Storage = function () {
+    function Storage() {
+        _classCallCheck(this, Storage);
+    }
+
+    _createClass(Storage, null, [{
+        key: "storageAvailable",
+        value: function storageAvailable(type) {
+            try {
+                var storage = window[type],
+                    x = "__storage_test__";
+                storage.setItem(x, x);
+                storage.removeItem(x);
+                return true;
+            } catch (e) {
+                return e instanceof DOMException && (
+                // everything except Firefox
+                e.code === 22 ||
+                // Firefox
+                e.code === 1014 ||
+                // test name field too, because code might not be present
+                // everything except Firefox
+                e.name === "QuotaExceededError" ||
+                // Firefox
+                e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+                // acknowledge QuotaExceededError only if there's something already stored
+                storage.length !== 0;
+            }
+        }
+    }, {
+        key: "objToString",
+        value: function objToString(arrTodos) {
+            var stringTodos = "";
+            arrTodos.forEach(function (todo) {
+                stringTodos = stringTodos.concat(todo.name + ",");
+                stringTodos = stringTodos.concat(todo.id + ",");
+                stringTodos = stringTodos.concat(todo.completed + ",");
+            });
+            return stringTodos;
+        }
+    }, {
+        key: "strToObj",
+        value: function strToObj(string) {
+            var strArr = [];
+            var objArr = [];
+            strArr = string.split(",");
+            strArr.pop(); // remove last element as it is empty space 
+            for (var i = 0; i < strArr.length; i += 3) {
+                var obj = new Todo();
+                obj.name = strArr[i];
+                obj.id = +strArr[i + 1];
+                if (strArr[i + 2] === "true") {
+                    obj.completed = true;
+                } else {
+                    obj.completed = false;
+                }
+                objArr.push(obj);
+            }
+            return objArr;
+        }
+    }, {
+        key: "saveToLocalStorage",
+        value: function saveToLocalStorage(arrTodos) {
+            if (this.storageAvailable("localStorage")) {
+                // Yippee! We can use localStorage awesomeness
+                window.localStorage.setItem("todos", this.objToString(arrTodos));
+                console.log("saved");
+            } else {
+                // Too bad, no localStorage for us
+                console.log("Sorry, no local storage available!");
+            }
+        }
+    }, {
+        key: "loadFromLocalStorage",
+        value: function loadFromLocalStorage() {
+            if (this.storageAvailable("localStorage")) {
+                // Yippee! We can use localStorage awesomeness
+                var string = window.localStorage.getItem("todos");
+                if (string) {
+                    //set id counter 
+                    var arrTodos = this.strToObj(string);
+                    var lastId = arrTodos[arrTodos.length - 1].id;
+                    Todo.counter = lastId;
+                    // return arr of Todo objects
+                    return arrTodos;
+                }
+            } else {
+                // Too bad, no localStorage for us
+                console.log("Sorry, no local storage available!");
+            }
+        }
+    }]);
+
+    return Storage;
+}();
+
+var todoList = exports.todoList = new TodoList();
+
+/***/ }),
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11977,8 +12107,6 @@ exports.view = undefined;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _controller = __webpack_require__(61);
-
-var _model = __webpack_require__(62);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -11999,7 +12127,7 @@ var View = function () {
 
             this.elemInput.keypress(function (e) {
                 if (e.which === 13) {
-                    _controller.controller.addTodo(new _model.Todo(_this.elemInput.val()));
+                    _controller.controller.addTodo(_this.elemInput.val());
                     _this.elemInput.val("");
                     _this.render();
                 }
@@ -12016,6 +12144,8 @@ var View = function () {
                 _controller.controller.deleteById(id);
                 self.render();
             });
+
+            this.render();
         }
     }, {
         key: "render",

@@ -109,7 +109,7 @@ class Storage {
     static saveToLocalStorage(arrTodos){
         if (this.storageAvailable("localStorage")) {
             // Yippee! We can use localStorage awesomeness
-            localStorage.setItem("todos",this.objToString(arrTodos));
+            window.localStorage.setItem("todos",this.objToString(arrTodos));
             console.log("saved");
         }
         else {
@@ -121,7 +121,7 @@ class Storage {
     static loadFromLocalStorage(){
         if (this.storageAvailable("localStorage")) {
             // Yippee! We can use localStorage awesomeness
-            let string = localStorage.getItem("todos");
+            let string = window.localStorage.getItem("todos");
             if(string){
                 //set id counter 
                 let arrTodos = this.strToObj(string);

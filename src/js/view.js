@@ -45,7 +45,8 @@ class View{
                 checkMark = "checked";
             }      
             let elem = `<li class="${classCompleted}">
-                            <input type="checkbox" class="btn-completed" data-id="${todo.id}" ${checkMark}> 
+                            <input type="checkbox" id="complete${todo.id}" class="btn-completed" data-id="${todo.id}" ${checkMark}> 
+                            <label for="complete${todo.id}" class="btn-check"></label>   
                             <label>${todo.name}</label> 
                             <button class="btn-delete" data-id="${todo.id}"></button>
                         </li>`;

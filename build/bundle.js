@@ -7055,9 +7055,9 @@ var TodoList = function () {
         key: "toggleById",
         value: function toggleById(id) {
             var index = this.todos.findIndex(function (elem) {
-                elem.id === +id;
+                return elem.id === +id;
             });
-            this.todos[index].id = !this.todos[index].id;
+            this.todos[index].completed = !this.todos[index].completed;
         }
     }]);
 
@@ -7094,7 +7094,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _jquery2.default)(function () {
 
-    console.log("App start");
     _controller.controller.init();
 });
 
@@ -11996,12 +11995,26 @@ var View = function () {
         value: function init() {
             var _this = this;
 
+            var self = this;
+
             this.elemInput.keypress(function (e) {
                 if (e.which === 13) {
                     _controller.controller.addTodo(new _model.Todo(_this.elemInput.val()));
                     _this.elemInput.val("");
                     _this.render();
                 }
+            });
+
+            this.elemList.on("click", ".btn-completed", function () {
+                var id = $(this).attr("data-id");
+                _controller.controller.toggleById(id);
+                self.render();
+            });
+
+            this.elemList.on("click", ".btn-delete", function () {
+                var id = $(this).attr("data-id");
+                _controller.controller.deleteById(id);
+                self.render();
             });
         }
     }, {
@@ -12010,25 +12023,19 @@ var View = function () {
             var _this2 = this;
 
             var self = this;
-            //clear all
+            //remove li elements
             $("li").remove();
-            //append li elements
+            //redraw li elements
             var todos = _controller.controller.getTodos();
             todos.forEach(function (todo) {
-                var elem = "<li>\n                            <input type=\"checkbox\" class=\"btn-completed\" data-id=\"" + todo.id + "\"> \n                            " + todo.name + " \n                            <button class=\"btn-delete\" data-id=\"" + todo.id + "\">DELETE</button>\n                        </li>";
+                var classCompleted = "";
+                var checkMark = "";
+                if (todo.completed === true) {
+                    classCompleted = "completed";
+                    checkMark = "checked";
+                }
+                var elem = "<li class=\"" + classCompleted + "\">\n                            <input type=\"checkbox\" id=\"complete" + todo.id + "\" class=\"btn-completed\" data-id=\"" + todo.id + "\" " + checkMark + "> \n                            <label for=\"complete" + todo.id + "\" class=\"btn-check\"></label>   \n                            <label>" + todo.name + "</label> \n                            <button class=\"btn-delete\" data-id=\"" + todo.id + "\"></button>\n                        </li>";
                 _this2.elemList.append(elem);
-
-                $(".btn-delete").on("click", function () {
-                    var id = $(this).attr("data-id");
-                    _controller.controller.deleteById(id);
-                    self.render();
-                });
-
-                $(".btn-completed").on("click", function () {
-                    var id = $(this).attr("data-id");
-                    _controller.controller.toggleById(id);
-                    self.render();
-                });
             });
         }
     }]);
@@ -12053,7 +12060,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(109)(content, options);
+var update = __webpack_require__(112)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -12073,18 +12080,38 @@ if(false) {
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(108)(false);
+var escape = __webpack_require__(108);
+exports = module.exports = __webpack_require__(109)(false);
 // imports
 
 
 // module
-exports.push([module.i, "body {\n    background-color: red;\n}", ""]);
+exports.push([module.i, "body {\n    font-family: 'Montserrat', sans-serif;\n    background-color: #DFDBE5;\n    background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Cpath fill='%239C92AC' fill-opacity='0.4' d='M192 15v2a11 11 0 0 0-11 11c0 1.94 1.16 4.75 2.53 6.11l2.36 2.36a6.93 6.93 0 0 1 1.22 7.56l-.43.84a8.08 8.08 0 0 1-6.66 4.13H145v35.02a6.1 6.1 0 0 0 3.03 4.87l.84.43c1.58.79 4 .4 5.24-.85l2.36-2.36a12.04 12.04 0 0 1 7.51-3.11 13 13 0 1 1 .02 26 12 12 0 0 1-7.53-3.11l-2.36-2.36a4.93 4.93 0 0 0-5.24-.85l-.84.43a6.1 6.1 0 0 0-3.03 4.87V143h35.02a8.08 8.08 0 0 1 6.66 4.13l.43.84a6.91 6.91 0 0 1-1.22 7.56l-2.36 2.36A10.06 10.06 0 0 0 181 164a11 11 0 0 0 11 11v2a13 13 0 0 1-13-13 12 12 0 0 1 3.11-7.53l2.36-2.36a4.93 4.93 0 0 0 .85-5.24l-.43-.84a6.1 6.1 0 0 0-4.87-3.03H145v35.02a8.08 8.08 0 0 1-4.13 6.66l-.84.43a6.91 6.91 0 0 1-7.56-1.22l-2.36-2.36A10.06 10.06 0 0 0 124 181a11 11 0 0 0-11 11h-2a13 13 0 0 1 13-13c2.47 0 5.79 1.37 7.53 3.11l2.36 2.36a4.94 4.94 0 0 0 5.24.85l.84-.43a6.1 6.1 0 0 0 3.03-4.87V145h-35.02a8.08 8.08 0 0 1-6.66-4.13l-.43-.84a6.91 6.91 0 0 1 1.22-7.56l2.36-2.36A10.06 10.06 0 0 0 107 124a11 11 0 0 0-22 0c0 1.94 1.16 4.75 2.53 6.11l2.36 2.36a6.93 6.93 0 0 1 1.22 7.56l-.43.84a8.08 8.08 0 0 1-6.66 4.13H49v35.02a6.1 6.1 0 0 0 3.03 4.87l.84.43c1.58.79 4 .4 5.24-.85l2.36-2.36a12.04 12.04 0 0 1 7.51-3.11A13 13 0 0 1 81 192h-2a11 11 0 0 0-11-11c-1.94 0-4.75 1.16-6.11 2.53l-2.36 2.36a6.93 6.93 0 0 1-7.56 1.22l-.84-.43a8.08 8.08 0 0 1-4.13-6.66V145H11.98a6.1 6.1 0 0 0-4.87 3.03l-.43.84c-.79 1.58-.4 4 .85 5.24l2.36 2.36a12.04 12.04 0 0 1 3.11 7.51A13 13 0 0 1 0 177v-2a11 11 0 0 0 11-11c0-1.94-1.16-4.75-2.53-6.11l-2.36-2.36a6.93 6.93 0 0 1-1.22-7.56l.43-.84a8.08 8.08 0 0 1 6.66-4.13H47v-35.02a6.1 6.1 0 0 0-3.03-4.87l-.84-.43c-1.59-.8-4-.4-5.24.85l-2.36 2.36A12 12 0 0 1 28 109a13 13 0 1 1 0-26c2.47 0 5.79 1.37 7.53 3.11l2.36 2.36a4.94 4.94 0 0 0 5.24.85l.84-.43A6.1 6.1 0 0 0 47 84.02V49H11.98a8.08 8.08 0 0 1-6.66-4.13l-.43-.84a6.91 6.91 0 0 1 1.22-7.56l2.36-2.36A10.06 10.06 0 0 0 11 28 11 11 0 0 0 0 17v-2a13 13 0 0 1 13 13c0 2.47-1.37 5.79-3.11 7.53l-2.36 2.36a4.94 4.94 0 0 0-.85 5.24l.43.84A6.1 6.1 0 0 0 11.98 47H47V11.98a8.08 8.08 0 0 1 4.13-6.66l.84-.43a6.91 6.91 0 0 1 7.56 1.22l2.36 2.36A10.06 10.06 0 0 0 68 11 11 11 0 0 0 79 0h2a13 13 0 0 1-13 13 12 12 0 0 1-7.53-3.11l-2.36-2.36a4.93 4.93 0 0 0-5.24-.85l-.84.43A6.1 6.1 0 0 0 49 11.98V47h35.02a8.08 8.08 0 0 1 6.66 4.13l.43.84a6.91 6.91 0 0 1-1.22 7.56l-2.36 2.36A10.06 10.06 0 0 0 85 68a11 11 0 0 0 22 0c0-1.94-1.16-4.75-2.53-6.11l-2.36-2.36a6.93 6.93 0 0 1-1.22-7.56l.43-.84a8.08 8.08 0 0 1 6.66-4.13H143V11.98a6.1 6.1 0 0 0-3.03-4.87l-.84-.43c-1.59-.8-4-.4-5.24.85l-2.36 2.36A12 12 0 0 1 124 13a13 13 0 0 1-13-13h2a11 11 0 0 0 11 11c1.94 0 4.75-1.16 6.11-2.53l2.36-2.36a6.93 6.93 0 0 1 7.56-1.22l.84.43a8.08 8.08 0 0 1 4.13 6.66V47h35.02a6.1 6.1 0 0 0 4.87-3.03l.43-.84c.8-1.59.4-4-.85-5.24l-2.36-2.36A12 12 0 0 1 179 28a13 13 0 0 1 13-13zM84.02 143a6.1 6.1 0 0 0 4.87-3.03l.43-.84c.8-1.59.4-4-.85-5.24l-2.36-2.36A12 12 0 0 1 83 124a13 13 0 1 1 26 0c0 2.47-1.37 5.79-3.11 7.53l-2.36 2.36a4.94 4.94 0 0 0-.85 5.24l.43.84a6.1 6.1 0 0 0 4.87 3.03H143v-35.02a8.08 8.08 0 0 1 4.13-6.66l.84-.43a6.91 6.91 0 0 1 7.56 1.22l2.36 2.36A10.06 10.06 0 0 0 164 107a11 11 0 0 0 0-22c-1.94 0-4.75 1.16-6.11 2.53l-2.36 2.36a6.93 6.93 0 0 1-7.56 1.22l-.84-.43a8.08 8.08 0 0 1-4.13-6.66V49h-35.02a6.1 6.1 0 0 0-4.87 3.03l-.43.84c-.79 1.58-.4 4 .85 5.24l2.36 2.36a12.04 12.04 0 0 1 3.11 7.51A13 13 0 1 1 83 68a12 12 0 0 1 3.11-7.53l2.36-2.36a4.93 4.93 0 0 0 .85-5.24l-.43-.84A6.1 6.1 0 0 0 84.02 49H49v35.02a8.08 8.08 0 0 1-4.13 6.66l-.84.43a6.91 6.91 0 0 1-7.56-1.22l-2.36-2.36A10.06 10.06 0 0 0 28 85a11 11 0 0 0 0 22c1.94 0 4.75-1.16 6.11-2.53l2.36-2.36a6.93 6.93 0 0 1 7.56-1.22l.84.43a8.08 8.08 0 0 1 4.13 6.66V143h35.02z'%3E%3C/path%3E%3C/svg%3E\");\n}\n\nh1 {\n    text-align: center;\n    font-size: 80px;\n    padding: 0;\n    margin: 5% 0px 0px 0px;\n    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.479);\n    color: rgba(53, 46, 63, 0.534);\n}\n\n.container {\n    margin: 20px auto;\n}\n\n.container-input {\n    width: 460px;\n    height: 60px;\n    padding: 10px;\n    margin: 0 auto 0 auto;\n    background-color:  white;\n    box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.548);\n    border-bottom: 2px solid grey;\n}\n\n.input-field {\n    height: 1.2em;\n    width: 420px;\n    padding: 10px 0px 20px 0px;\n    margin: 0 50px;\n    border: none;\n    font-size: 28px;\n    outline: none;\n}\n\n.completed {\n    text-decoration: line-through;\n    color: grey;\n}\n\n.btn-delete {\n    width: 25px;\n    height: 25px;\n    margin: 5px 20px;\n    background-color: white;\n    background-image: url(" + escape(__webpack_require__(110)) + ");\n    background-size: 25px 25px;\n    border: none;\n    visibility: hidden;\n}\n\n.btn-completed {\n    width: 30px;\n    height: 30px;\n    opacity: 0;\n    position: relative;\n    left: 15px;\n}\n\n.btn-check {\n    width: 30px;\n    height: 30px;\n    border: 2px solid rgba(0, 0, 0, 0.171);\n    border-radius: 20px;\n    position: relative;\n    left: -20px;\n    display: inline-block;\n}\n\ninput:checked + label {\n    background-size: 30px 30px;\n    background-image: url(" + escape(__webpack_require__(111)) + ");\n    background-repeat: no-repeat;\n}\n\nli:hover .btn-delete {\n    visibility: visible;\n}\n\nlabel {\n    width: 320px;\n    padding: 0;\n    margin: 0px 0px 0px 0px;\n}\n\n.container-list {\n    width: 480px;\n    margin: 0 auto;\n    padding: 0;\n    background-color: white;\n}\n\nli {\n    list-style-type: none;\n    width: 460px;\n    height: 50px;\n    margin: 0 auto;\n    padding: 15px 0px 0px 0px;\n    font-size: 24px;\n    background-color: white;\n    border-bottom : 1px solid gray;\n    display : flex;\n    justify-content: space-between;\n}\n\nul {\n    width: 480px;\n    margin: 0 auto;\n    padding: 10px 0px 10px 0px;\n    display: inline-block;\n    background-color: white;\n    box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.548);\n}\n\nfooter {\n    text-align: center;\n    font-size: 12px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 /* 108 */
+/***/ (function(module, exports) {
+
+module.exports = function escape(url) {
+    // If url is already wrapped in quotes, remove them
+    if (/^['"].*['"]$/.test(url)) {
+        url = url.slice(1, -1);
+    }
+    // Should url be wrapped?
+    // See https://drafts.csswg.org/css-values-3/#urls
+    if (/["'() \t\n]/.test(url)) {
+        return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'
+    }
+
+    return url
+}
+
+
+/***/ }),
+/* 109 */
 /***/ (function(module, exports) {
 
 /*
@@ -12166,7 +12193,19 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 109 */
+/* 110 */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADtklEQVRo3u1ZbUsUURR+nlmhCTH/Qr8giFgIIRIJXQtiISKQwAQJ1iGI/kDsN0GQIBZFBBMiCAmWIHUlRAlMiIhc/Gx/wSypD+3pw87a7Lzee2fWRWjgsrA7e87z3PNyzzmXIoKz/Fg4489/AmeCQJm0p8nCaYGaJgtl0s6EQJm0zwNVC1idIUudBj9DlnLAai9QVSHBuCxUJu1eoApgBAAICAHnichcJ8DPkiUBKk1VAIDaD6D4VOSXNoEyafd5wOOfVJEOkJglS2wH31QG1I5iSIQSKJN2vw+87xEAzuOMSDyLAO95av1A8UEIiQCBF6R9BFQlGnzLGgLAeZSSxPNmXMWBPyHRF0IiEMTHwCCBYcv9MWbRAiqVFIFdIUsWUHFlJekbPgYGE7PQlMg6AccCJE4gm4sEKvMGJOb1wEsOcKZE1pWDeF7dtECTrPNQ0Z0WgtkmVjZjZMem0QUNEnSzUxKJheSAbQOfJJNJ1eiipiUAOJMRChcNwE8mbAhVyuklA5NP+BQvGWzEhIJLUrUfWNLYvVaKHXcBLBuAH1eMJ+o0NMuKJOixhItIy3r3Nc4W6nZkLzV3k22cksGPaR6MNGkpX+llJ6gG7JjBqU7Tnvi1YmBT0efvGZYkTNPUr+hlpzBCAsC5m6KeYtqpxIpebve+JACcOymLQWYxVnmjl2JPAraYQTnek0U9n+tiU5/aAm/10mrA/29304XeGQRx2Il9qxtBvJYSvP8AGz3NNLqmmXlUD7LR0zjINvQLM+VSwgKcG50sJd4bVJWt9lenKdIhoZxGN90eVgf8kAtkk1QlQQKVTRJDWZbT2wYNzXUfgCxkGBHYNmgDoxRvGzRF19K0lB8MwCcpzFpmJIEd1+TU8PkBRb/dMUgGAzpjld0If2WMgqua6W/XgESYjgCBj2TBAlbDBDMi2PKGp+gn/cC+mfdN5wKjxd/AlgVsqI778inqmLzIXE5hjOmOMjd+AltKLrQVcjcQZtIrGY3XPyuM178DxUGV8bqXRMQdgQBwLmd8wfEl5oLjMAJ8Yhr9RtqH7SSEgHOpQ1dMe8HArl0AihdjrpggIrHrALDrwPoe0PgKlJLeT7vqQKkONOrA+gFgJ72vJPQAsPeBQqfBt9Y+MKICXkSyaeq7+fQEy0G2vs+5GSyHwMUMxF0Nd/3xrIanD4iaAZxzl1eWeP7b8Mlve8e76RQRkMy5gnMhKRgeRfCA9AL2KlEdZPR4glVCPiXke/rwNAIu5FpApYvqiu/58f4FyCohcYI+fSkAAAAASUVORK5CYII="
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADjUlEQVRo3u2ZzWuUVxTGf8/MpIktpetKN0L/grpP0jRqmuar0KkEalFpTaDNogQKoYsolGwMXUQh9ssaY7SJNbW2aStImy4ClRJKFoKCFiEgiEWlUdOYzjzdGKKjeb3zETMDc+Eu5uXw3uc55z3nPueMbFPKK0aJrzKBMoEygTKBMoFHLh1SlfZrQvv0WqRdMV5k2qdK4pwEGoAF0rT6fZ8uCQL6TBWkOAE03/d4HtHkTv9S1J+Q9ihBiq8RzQju2+uA7/Wpqos2AjquODcYAbZGmN0iTYM7PVVUBLRHMZ5nCPFWgPk/mJe8y5cAEmsOHon1fB4IHmCMd/lr6ceaE+ArBomzM9D6MLN0mOXPJhZQFZ5bNe8f1ADQkZGwK+1jzLLDvU4HVyEN6SMq+VMjeqHg4IfUT5wuYvdQRO8TbODtTPCRBDSsDxEfIzaQ4lcd1PqCgR9WH6I70POnWKDdtf4v+CLTsD4APsl4fJ4EtW731bzAH9ZuRG9ghv9EJW1O+m6wlNCI3gP2r2B/jhi1bvffOYEfUQ/QF2h+hkWavd3/BmshHdUu4MC94K3klRkS1Dnp61mC70b0B3p+kgSNTnr+saZLBHRELxLnPBAPOGKaBeq93TeD8BxTFzAQCH6KRbZ4m28HmT8QgVF1AIOREVheZ1nHJrd4LvKAMXViBgMDFfTO6BwYVRcK9BZMIRqc9K0VwO8Evgh0yDRPUe+2sKhGV6Fv1A2B3yv8RhWNbvKdDHG2DXEoSPGaGcg+ryLFnMbVg7OoGHPLFUPj2ooZCcync6R52Ulfy6myRalRjasX2B34rp9J0UqCJsxokM4SF4hT45bc75bHymmdVB/QE1hBfsdsBCoCrC8So8YtvpLXxRjSD+iU+jHdBZRCl4Fqt3o2b1kS2tDoOw0gugoAfpY01W7z5YLoqmw6Mk3oAKYjj/OukKbGLb5YMGGYFQEkfuRLzI4czrpKnBo3+MKaDbaMzR+8gzgSqOOX9jUSvFJo8Dk39TquOM9yFHgzwPw6os5bPLMqXV2uUwlNKsFdxjCvR5jdRNR7s6dXrS3NZ6yiaVVwg3FM0yMSZo40m7zZZ1dzJpDXZM4bvcgibyBOZ7SBtzGvrjb4gg22NKkqUkwAdcA8ptH1nnwic6VCTeb0g57mGb5F7HWtzzyxwVj5f+IygTKB0l4PdU2Sih70A4Wn1KvQw2OVIo9AJt7/AWMJcBjPz1MUAAAAAElFTkSuQmCC"
+
+/***/ }),
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -12222,7 +12261,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(110);
+var	fixUrls = __webpack_require__(113);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -12538,7 +12577,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 110 */
+/* 113 */
 /***/ (function(module, exports) {
 
 

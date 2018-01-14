@@ -45,11 +45,36 @@ h1 {
 .btn-delete {
     width: 25px;
     height: 25px;
-    margin: 0 20px;
+    margin: 5px 20px;
     background-color: white;
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/1b/Emojione1_274C.svg);
+    background-image: url("../../data/mail_delete.png");
+    background-size: 25px 25px;
     border: none;
     visibility: hidden;
+}
+
+.btn-completed {
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    position: relative;
+    left: 15px;
+}
+
+.btn-check {
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.171);
+    border-radius: 20px;
+    position: relative;
+    left: -20px;
+    display: inline-block;
+}
+
+input:checked + label {
+    background-size: 30px 30px;
+    background-image: url("../../data/checkmark_korganizer.png");
+    background-repeat: no-repeat;
 }
 
 li:hover .btn-delete {

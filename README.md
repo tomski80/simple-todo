@@ -10,16 +10,16 @@ very simple todo app with jquery
  These instructions will get you a copy of the project up and running
  on your local machine for development purposes.
 
-##Prerequisites
+## Prerequisites
 
- You need to have **npm** installed to build the app.
- **npm** is installed with Node.js.
+ You need to have ** npm ** installed to build the app.
+ ** npm ** is installed with Node.js.
  
  [npm website](https://www.npmjs.com/get-npm)
  
  [node website](https://nodejs.org/en/)
 
-##Installing
+## Installing
 
  You need to install dependencies.
  
@@ -33,12 +33,12 @@ very simple todo app with jquery
 
  '''npm run-script serve'''
  
-##Build with
+## Build with
 
 [babel](https://babeljs.io/)
 
 [webpack](https://webpack.js.org/)
 
-##Authors
+## Authors
 
 Tomasz Straszewski
